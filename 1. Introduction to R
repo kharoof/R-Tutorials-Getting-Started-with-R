@@ -1,0 +1,128 @@
+In this tutorial series you will learn how to use the open source R programming language and the steemR package to analyse data from the Steem Blockchain.
+
+<center>
+https://cdn.steemitimages.com/400x400/https://www.r-project.org/logo/Rlogo.png
+</center>
+
+#### Repository
+The R source code can be found at https://stat.ethz.ch/R/daily/
+The steemR source code can be found at https://github.com/kharoof/steemR
+
+
+#### What Will I Learn?
+This is the beginning of a 9 part tutorial series about the R Statistical Programming Language, targeted at data analysts that are active on Steem. 
+
+In this tutorial you will:
+-  Get an Introduction to the course.
+- Install free and opensource R as well as a free IDE for managing your workflow, R Studio
+- Learn about benefits of using R
+- Get started using R, by visualising a sample data set. 
+
+#### Requirements
+
+- Basic Knowledge of Statistics
+- Basic Programming Experience
+- Some Knowledge of Steem and Cryptocurrencies
+
+#### Difficulty
+
+- Intermediate
+
+https://steemitimages.com/DQmehTDgLpQghT7ZWRnfYZAgK4VkGKZXgQUH476xivXaiZf/circles.png
+---
+
+# R
+R is an free open source software environment for statistical computing and graphics. R is widely used in academia and should be on any serious statisticians to do list. The initial learning curve can be steep and it lends itself to people who like working with scripting languages, and with programming backgrounds. 
+
+# Key benefits of using R:
+* Cutting edge modelling techniques and extensive documentation 
+* Data Manipulation
+* Powerful graphics
+* R can work with different data types and it is not limited to the rectangular data structure required by environments such as Excel. A useful example is the time series structure which we will cover in this course. 
+
+Once you get past the initial learning curve R becomes extremely intuitive to use and the documentation is extensive.
+ 
+You can extend the basic functionality with user defined functions and add on packages.
+R also increasingly integrates with existing established statistical programs such as Excel and SAS. 
+
+## Scripting vs Spreadsheets
+I use spreadsheets every day, they have many uses and are they are the go to tool in industry. Scripting languages like R have some advantages over spreadsheets. 
+* For certain tasks the structure that a scripting language imposes improves performance and reduces errors compared to using spreadsheets. 
+* Scripting languages make it easy to iterate though models. 
+You can update data, assumptions and even formulas without breaking the structure of your models. *How many times have you noticed an error with some data in a spreadsheet at the last minute but were afraid to fix it in case it messed up your graph?*
+* Scripting languages make it easy to create reusable templates. We will see examples of these in this course where we will create graph templates that can be reused. 
+
+Many of the positives of R could also be said about SAS or other scripting languages such as Python however these programmes differ in some respects and I have found R to be much more versatile, intuitive and rewarding for statistical analysis.  It is so intuitive to use when you become familiar with it. 
+
+## fRustRation
+The initial frustration that many new users find with R is usually the perception that simple things are not easy or intuitive. 
+ 
+In a spreadsheet program it is very intuitive to create a graph for example. Simply; open a spreadsheet, type in a table of data and plot a line graph by pointing and clicking. You can even click and add titles and format them as you wish to polish the graph. 
+Managing graphs gets more difficult if you are updating an existing template or adding data. 
+
+With a scripting language such as R you first read in the data to the program then call a function that plots the graph. If you are starting from scratch you will find it comparatively more difficult than using spreadsheet. You can’t just type in data and plot the graph without guidance.  However if you have a script with the necessary commands set up you can easily plot a graph. Scripts and templates are widely available so you don’t even need to create them yourself. 
+
+---
+
+## Installation
+There are two programs you will need to install for this course. Base R is the engine and is all that you need to use R however we will also be using a free general purpose IDE called R Studio which streamlines the process of creating scripts and visualising your environment. 
+To get started download and install the latest versions for your system from the following links
+#### R
+* https://cran.r-project.org/
+#### R Studio
+* https://www.rstudio.com/
+
+---
+
+## Getting Started
+In the next tutorial we will show you around the R Studio IDE but if you are eager to get started open R Studio and let's give it a go! 
+
+1. Open R Studio
+![Screenshot from 2018-05-30 11-40-04.png](https://cdn.steemitimages.com/DQmPoVtwa1Fc4fQUg59uhNhHr4udm8aPDLHPTeinYiKZn4D/Screenshot%20from%202018-05-30%2011-40-04.png)
+*You will notice a widow called “console” when you open R Studio. In this console you can type commands.* 
+
+***Next we will look at a sample dataset ...***
+
+2. Type the following command in the console
+> mtcars
+
+*You will see a sample dataset that is available called "mtcars"*
+
+![Screenshot from 2018-05-30 11-40-36.png](https://cdn.steemitimages.com/DQmYemS9iiTXDyDu4cxg828Ft4bXVwSiDRRvopnyzp81cWf/Screenshot%20from%202018-05-30%2011-40-36.png)
+
+*What does this dataset mean?*
+
+***We can look at the help file for this dataset to find out more ...***
+
+3. Type the following command in the console
+> help(mtcars)
+
+![Screenshot from 2018-05-30 11-40-59.png](https://cdn.steemitimages.com/DQmYhnQpNQ6LfPsLkbntn4eStC3aTRwSo2oMxYWzda4jv9u/Screenshot%20from%202018-05-30%2011-40-59.png)
+*In the help section of the R Studio IDE you will see details about the dataset. After reading this we can now visualise the data* 
+
+*What does the data look like?*
+
+***We will plot the data to examine it ...***
+
+4. Type the following command in the console
+> plot(mtcars)
+
+![Screenshot from 2018-05-30 11-41-20.png](https://cdn.steemitimages.com/DQmcb3Lo4g44Zot34GW9sFc15jkVSQDPjLcztTPaeHDBWVt/Screenshot%20from%202018-05-30%2011-41-20.png)
+*This graph shows an X-Y plot of all the variables in the mtcars dataset.* 
+
+---
+
+## Coming up
+This post just looked at some basic features of R but you can already see how easy it is to use. With just a few simple commands we can visualise our data. 
+
+This course will cover the basics of R over a series of 9 lessons. You will first learn some essential techniques and then I will take you on a tour of some of the more advanced features of R with Examples that have a Cryptocurrency and Steem falvour. I will also take you on a tour of the steemR package. We will learn how to install that in the next lesson! 
+
+#### Curriculum
+For a complete list of the lessons in this course you can find them on github. Feel free to reuse these tutorials but if you like what you see please don't forget to star me on github and upvote this post. 
+* https://github.com/kharoof/R-Tutorials-for-Steemit/
+
+---
+
+***Thank you for reading. I write on Steemit about Blockchain, Cryptocurrency and Travel.***
+*R logo source: https://www.r-project.org/logo/*
+

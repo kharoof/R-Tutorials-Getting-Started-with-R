@@ -10,7 +10,7 @@ The steemR source code can be found at https://github.com/kharoof/steemR
 
 
 #### What Will I Learn?
-This is the beginning of a 9 part tutorial series about the R Statistical Programming Language, targeted at data analysts that are active on Steem. 
+This is the beginning of a 9 part tutorial series about the R Statistical Programming Language, targeted at data analysts and programmers that are active on Steem. 
 
 In this tutorial you will:
 -  Get an Introduction to the course.
@@ -65,11 +65,11 @@ With a scripting language such as R you first read in the data to the program th
 ---
 
 ## Installation
-There are two programs you will need to install for this course. Base R is the engine and is all that you need to use R however we will also be using a free general purpose IDE called R Studio which streamlines the process of creating scripts and visualising your environment. 
+There are two programs you will need to install for this course. Base R is the engine and is all that you need to use R however we will also be using a free version of general purpose IDE called R Studio which streamlines the process of creating scripts and visualising your environment. 
 To get started download and install the latest versions for your system from the following links
 #### R
 * https://cran.r-project.org/
-#### R Studio
+#### R Studio (Free Version)
 * https://www.rstudio.com/
 
 ---
@@ -115,7 +115,7 @@ In the next tutorial we will show you around the R Studio IDE but if you are eag
 ## Coming up
 This post just looked at some basic features of R but you can already see how easy it is to use. With just a few simple commands we can visualise our data. 
 
-This course will cover the basics of R over a series of 9 lessons. You will first learn some essential techniques and then I will take you on a tour of some of the more advanced features of R with Examples that have a Cryptocurrency and Steem falvour. I will also take you on a tour of the steemR package. We will learn how to install that in the next lesson! 
+This course will cover the basics of R over a series of 9 lessons. We will begin with some essential techniques and then I will take you on a tour of some of the more advanced features of R with examples that have a Cryptocurrency and Steem flavour. I will also take you on a tour of the steemR package. We will learn how to install that in the next lesson! 
 
 #### Curriculum
 For a complete list of the lessons in this course you can find them on github. Feel free to reuse these tutorials but if you like what you see please don't forget to star me on github and upvote this post. 
@@ -125,4 +125,3 @@ For a complete list of the lessons in this course you can find them on github. F
 
 ***Thank you for reading. I write on Steemit about Blockchain, Cryptocurrency and Travel.***
 *R logo source: https://www.r-project.org/logo/*
-

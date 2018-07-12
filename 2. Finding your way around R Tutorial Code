@@ -1,0 +1,67 @@
+#Data Types & Structures
+
+#Vectors
+x = c(1,2,3,4)
+x
+
+#Matrices
+A = matrix(1:12,nrow=3, ncol=4)
+A
+
+#Arrays
+B = array(1:24, dim=c(4,3,2))
+B
+
+#Mixed Vectors
+y = c("Monday", "Tuesday", 1, 2)
+
+#Lists
+alist =list(vec=x, mat=A, arr=B)
+alist
+
+alist$vec #(Equivalent to x)
+alist$mat #(Equivalent to A)
+alist$arr #(Equivalent to B)
+
+
+#Functions
+##Inbuilt
+log(100)
+
+help(log)
+
+##User Defined
+square <- function(x) {
+  return(x*x)
+}
+
+square(5)
+
+
+#Install steemRdata
+library(devtools)
+install_github("kharoof/steemRdata")
+
+#Data Import and Export
+library(data.table)
+steem_data <- fread("https://raw.githubusercontent.com/kharoof/R-Tutorials-for-Steemit/master/steem_data.csv")
+steem_data
+
+frwite(data=steem_data, file="steem_data.csv")
+
+#Exploring Data
+
+summary(steem_data)
+
+steem_data$votes
+
+plot(steem_data$votes)
+
+hist(steem_data$votes)
+
+## Advanced Graphics
+library(ggplot2)
+
+ggplot(data, aes(x=date, y=total_payout, colour=votes))+geom_point()
+
+ggplot(steem_data, aes(x=date, y=total_payout))+geom_point()

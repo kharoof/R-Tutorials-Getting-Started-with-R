@@ -1,0 +1,297 @@
+This is the third part of a 9 part tutorial series about the R Statistical Programming Language, targeted at data analysts and programmers that are active on Steem. 
+
+In this course you will learn the R programming language through practical examples. 
+
+https://steemitimages.com/0x0/https://cdn.steemitimages.com/400x400/https://www.r-project.org/logo/Rlogo.png
+
+# Repository
+The R source code can be found via one of the official mirrors at
+* https://cran.r-project.org
+
+This tutorial is part of a series, the text as well as the code is available in my github repo
+* https://github.com/kharoof/R-Tutorials-for-Steemit
+
+# What Will I Learn?
+The first two tutorials introduced the basics of R, the rest of this series will focus on worked examples where we will slowly introduce new concepts and learn some of the extended functionality of the R programming language. 
+
+# In this tutorial you will:
+* Get an Introduction to Web-scraping and some tips
+* Discuss the Limitations of R for Web-scraping
+* Discover Task Views a way to find packages in R
+* Web-scrape CoinMarket Cap with R, in just 6 lines of code
+* Learn the basics of data wrangling with R
+* Practice using the data.table and ggplot packages
+
+# Requirements
+* Lesson 1 [Introduction to R](https://steemit.com/utopian-io/@eroche/introduction-to-r) 
+* Lesson 2 [Finding Your Way Around R](https://steemit.com/utopian-io/@eroche/finding-your-way-around-r)
+* Basic Knowledge of Statistics 
+* Basic Programming Experience 
+* Some Knowledge of Steem and Cryptocurrencies 
+
+# Difficulty
+Intermediate 
+
+https://steemitimages.com/DQmehTDgLpQghT7ZWRnfYZAgK4VkGKZXgQUH476xivXaiZf/circles.png
+
+---
+
+# Introduction to Web Scraping
+If your a data junkie like me you will always be on the lookout for new and interesting datasets. Data may not be very interesting but exploring it with machine learning models and dynamic visualizations is fun. Getting insights from the noise is a skill and I assure you it will make people speak in hushed tones when you walk by :)
+
+***So what data can you scrape and where is the best place to look for it?***
+
+## Terms of Service
+The web is a great source of data which can be easily accessed. It is important to note that scraping web data may be against the terms of service of a website so you should check this before attempting to download data. When and if you should download data is outside the scope of this tutorial. 
+
+## Tips before you start coding
+If you find a webpage with data you can of course print it off and manually type the results in a spreadsheet and viola, but for anything more than a few numbers you may be better off automating it in some way. 
+**Tip 1:  Check if the website has a download button.**
+*I don't know how many times I have spent ages pulling together a script for data scraping to realise there is a form or download button which delivers all the data in a nicely formatted spreadsheet at the touch of a button.*
+**Tip 2: Check if the data is available from somewhere else**
+*If someone has done the work already there is no point in reinventing the wheel, e.g. use steemsql or other services.*
+**Tip 3: Copy and paste**
+*This technique is often the quickest. I would recommend this method for individual tables on ad hoc analysis but be careful, formats can sometimes get messed up.*
+**Tip 4:  Use Excel**
+*Excel lets you Link to External Data and import the tables for the website. This is a great option for many purposes, you can even write VBA macros to loop thorough sites. It works pretty well for some ues cases.*
+
+These first 4 tips are my go to methods for scraping data. Try them out first. 
+
+##  When do you need a scraper?
+I would recommend using a more advanced method in the following 3 cases
+* If you regularly need to get an update from a website
+* If you need to download data from many pages on a website
+* If the website does not let you copy data due to some strange formatting or plugins, this may be a sign your not supposed to download the data to check the terms of service first.
+
+
+***I thought this was a tutorial about R...***
+
+
+
+# Limitations of R
+R is not the best tool for webscraping, in fact R is not the best tool for many things. If you have some industrial scale scraping to do, Python is king. You can build crawlers with it and there are libraries to handle almost any web page format. R is not particularly fast but the benefit of using R is that it is easy to get data for many useful situations. Today we will download Coinmarket Cap data and plot the historical Steem price using just 6 lines of code.
+
+
+# Webscraping with R
+I use the following method for Webscraping; 
+* find a weblink, 
+* use a package/software to download the data 
+* then clean and use the data
+
+https://i.imgur.com/l9scQ2I.png
+
+***You need to install Packages for almost any task besides basic statistics. Before delving into our worked example for today we will take a minute to learn how to search for R packages....***
+
+## R Packages & Task Views
+We learned in the last lesson the main repository for R packages is called CRAN. On their website you can see a list of the packages available
+* https://cran.r-project.org/
+
+![Screenshot from 2018-07-19 15-55-55.png](https://cdn.steemitimages.com/DQmVVtz3MJHU5K4nXaftFgVC4MLZRtHCK1ADqHGBie21xdY/Screenshot%20from%202018-07-19%2015-55-55.png)
+
+There are 12,770 packages available. It can be hard to find the one you want and this is actually a limitation of R.  Anyone can submit a package. There is no central coding standard, just basic submission and documentation standards applied. This means that there may be multiple packages that do the similar things. In order to help you find the one you are looking for packages are organised into Task Views, or groupings of related packages.
+
+![Screenshot from 2018-07-19 15-56-13.png](https://cdn.steemitimages.com/DQmWuqvCxLYPgZs3QWeTrZk3L8M9U5pKqhSFxf7CoEnPpz7/Screenshot%20from%202018-07-19%2015-56-13.png)
+
+I will leave it with you to explore the key R packages in each task view, for today's tutorial we will continue with a very easy to use package for querying we data.
+
+---
+
+## Install Our Web scraping Package
+As we did in the last lesson we will open up R Studio and create a new script for storing our code. The package we will install and use is called "htmltab".
+Type the following code in the script and hit ctrl + enter to run it in the command line.
+> install.packages(htmltab, dependencies=True)
+
+* Can you remember the (non code) way to install a package which you we covered in lesson 2.
+
+Next we will load the package htmltab, Type the following code in the script and hit ctrl + enter to run it in the command line.
+> library(htmltab) 
+
+* There is also another way to load a package, can you remember?
+
+***Useful Packages for Data and Plotting...***
+
+Before we continue we will also load 2 packages we have seen before and which we will make use of in each tutorial.
+
+> library(data.table)
+> library(ggplot2)
+
+* Can you remember what these two packages were for?
+
+***So now we have loaded our package we are ready to start***
+
+
+https://steemitimages.com/DQmehTDgLpQghT7ZWRnfYZAgK4VkGKZXgQUH476xivXaiZf/circles.png
+
+---
+
+
+# Find the Web Link
+The first stage of web scraping is find a web link for a page that has data to download. 
+
+In this tutorial we are going to download historical prices from Coinmarket Cap for Steem. If you head over to Coinmarket Cap you will notice a tab Historical Data. This is where we will start. The *"Finding the Weblink"* stage generally involves a bit of research till you find the right page. 
+
+![Screenshot from 2018-07-19 16-13-25.png](https://cdn.steemitimages.com/DQmezYmwSCegqfxmY8uoobDWNXGWraZCdYXihCaeJ6psmNX/Screenshot%20from%202018-07-19%2016-13-25.png)
+
+**Examining this page we see this page only goes back for 3 days but you can choose a longer range by selecting the date button.**
+
+![Screenshot from 2018-07-19 16-14-11.png](https://cdn.steemitimages.com/DQmRoFjbzVxGQpuemLTKwKptSwDQiAwZ9B6FiAi3mEAuLSP/Screenshot%20from%202018-07-19%2016-14-11.png)
+* We have chosen the last year
+
+You will notice the URL at the top now changes on this site. *This is what we have been looking for!*
+
+![Screenshot from 2018-07-19 16-14-50.png](https://cdn.steemitimages.com/DQmdwKZv32SsYwpn5SgDdXFB7JRrHqFTq4E35jfUD7TK7Eb/Screenshot%20from%202018-07-19%2016-14-50.png)
+
+We have a suitable url to scrape so we can move on to coding it up in R.
+
+
+https://steemitimages.com/DQmehTDgLpQghT7ZWRnfYZAgK4VkGKZXgQUH476xivXaiZf/circles.png
+
+---
+
+# Using the htmltab Package
+
+We will next copy and paste the url to our  R script and store it in a variable which we will call *"url"*. 
+*This makes it easy to change if we want to change the date range for exmaple.*
+Type
+> url <- “https://coinmarketcap.com/currencies/steem/historical-data/?start=20170719&end=20180719”
+
+* We have put the link in Quotation marks and you may also notice we are now using a symbol *<-*  for assignment. This is similar to the assignment operator we have been using before *=*, but <-  is more generally used in R for assigning variables, it has a slightly different meaning than assignment with an equals sign.
+
+Next in order to retrieve the data you can type into the script the following command and hit ctrl + enter
+> cmc <- htmltab(url)
+
+* This should get the coinmarket cap data for steem between those dates and store it in a data structure called *cmc*
+
+Now if you type into the console
+> cmc 
+
+* you will see a print out of the table of data.
+* You will also notice the variable appearing in the top right of R studio
+
+![Screenshot from 2018-07-19 17-49-35.png](https://cdn.steemitimages.com/DQmYfqjwJ8ZSugi4QAZb7vDusQQAFayBKGdG5s2RyYuzjYb/Screenshot%20from%202018-07-19%2017-49-35.png)
+
+* At the top right of R Studio you will see that  we have 365 observations in the cmc data structure. Expand out the cmc data by clicking on the blue circle next to it in the Environment window
+
+![Screenshot from 2018-07-19 17-50-37.png](https://cdn.steemitimages.com/DQmWQ8KhGZDK8dx9yMdAH47ibKqZQfgku2QoXr32SsVBWHV/Screenshot%20from%202018-07-19%2017-50-37.png)
+
+* You will notice here each heading of the tables (from Coin Market Cap) are the names of variables in the cmc data strucutre. 
+* You will also notice that the variables are all stored as characters. They print like numbers and dates when you see them in the console but they are not stored as numbers. 
+
+## Data Tables
+We are going to plot this data but before we do we need to clean it and format it correctly. In the last lesson we introduced the concept of a data.frame, a rectangular data structure. That is what cmc is, many packages use data.frame for historic reasons but we prefer storing data as a newer data.table structure. I would urge you to forget about using data frames and just head straight to using Data Tables. 
+
+We will convert our data.frame to a data.table by typing the following command
+> cmc <- data.table(cmc)
+
+To get the first row of the data table type 
+> cmc[1]
+
+* Data Tables use Square brackets for specifying arguments.
+
+
+https://steemitimages.com/DQmehTDgLpQghT7ZWRnfYZAgK4VkGKZXgQUH476xivXaiZf/circles.png
+
+---
+
+# Cleaning the Data/ The basics of data wrangling in R
+We mentioned that our date is stored as characters. Before we can plot our data we need to convert the dates to a date data type and the prices to numeric data types. In the previous lesson that there are two basic data types in R; 
+* Characters
+* Numeric
+Date is not a base data type but a combination of the two, a richer higher level data type.
+
+## Character to Number
+To convert a character to a number we use the function *as.numeric()* 
+
+A data.table has  a neat syntax for performing column wise operations. 
+
+> cmc[ ,LowPrice := as.numeric(Low)]
+
+* Data Tables use Square brackets for specifying arguments.
+* The first argument is always the row number. Blank means apply to each row.
+* The Second Argument is not necessary but if included it indicates some formula. In this case Low is the existing column name and we are assigning the value as.numeric(Low) to the new column Low.Price.
+
+## Character to Date
+Our date is a Character variable, which we are going to convert to a date variable. 
+
+***Can you guess what the function to do this is?***
+
+To convert a character to a number we use the function *as.Date()* 
+
+*R is case sensitive and there are varying conventions. This can get a bit annoying but it is never hard to find the formula you are looking for thanks to R studio and the interactive console*
+
+The as.Date(x, format) function takes two arguments, the character variable to convert (x) and the format of the data (format)
+
+
+The following table shows the available formats. 
+
+![Screenshot from 2018-07-19 18-19-14.png](https://cdn.steemitimages.com/DQmYRgcr5MqotnZGh8h5w4j3j2FMgHXVgAbKSHpG24XSagz/Screenshot%20from%202018-07-19%2018-19-14.png)
+*Source: https://www.statmethods.net/input/dates.html*
+
+In our case the command we wish to type is as follows
+
+> cmc[,PriceDate:=as.Date(Date, "%b %d, %Y")]
+
+* Here the PriceDate is our new column name and the Date is the character column we are converting according to the format  *"%b %d, %Y"*
+
+Type 
+> cmc
+
+
+![Screenshot from 2018-07-19 18-23-51.png](https://cdn.steemitimages.com/DQmdgtyhj65qajwdMeRFJ8tkWi8xDDNeSCYT5M5peFapyHf/Screenshot%20from%202018-07-19%2018-23-51.png)
+
+* In the terminal we now see a much neater print of the data than before and we notice our two new columns we created at the end.
+
+## Activity
+ML is a few lessons off but we can graph the price of Steem for the last year using the ggplot2 package. 
+
+> ggplot(cmc, aes(x=PriceDate, y=LowPrice))+geom_point()
+
+You will see the Plot in the bottom right tab of R Studio
+
+![Screenshot from 2018-07-19 18-26-19.png](https://cdn.steemitimages.com/DQmQdr3YdwFqsg96CmWMAAkE9fuox77dGvRcVA7WA5nb3ic/Screenshot%20from%202018-07-19%2018-26-19.png)
+
+## Recap
+In this lesson:
+* We got an introduction to Web scraping
+* We learned some techniques and tips of when to use R for Web scraping
+* We learned about task views
+* We outlined some limitations of using R for web-scraping
+* We used just 6 lines of code to scrape the Coin Market Cap website and plot the results. 
+
+## Benefits of Using R for Webscraping
+* The code is scripted so you can change the dates with easy and run it again and again. 
+* We did not have to specify any of the layout of the CMC data, R just knew which date to get. Of course it does not always work but there are powerful tools to specify the data that we wish to scrape.
+
+## Code Used
+> url <- "https://coinmarketcap.com/currencies/steem/historical-data/?start=20170719&end=20180719"
+cmc <- htmltab(url)
+cmc <- data.table(cmc)
+cmc[, LowPrice:=as.numeric(Low)]
+cmc[,PriceDate:=as.Date(Date, "%b %d, %Y")]
+ggplot(cmc, aes(x=PriceDate, y=LowPrice))+geom_point()
+
+
+https://steemitimages.com/0x0/https://steemitimages.com/DQmehTDgLpQghT7ZWRnfYZAgK4VkGKZXgQUH476xivXaiZf/circles.png
+
+---
+
+
+# Coming up
+
+This course will cover the basics of R over a series of 9 lessons. We began with some essential techniques (in the first 2 lessons) and I will take you on a tour of some of the more advanced features of R with worked examples that have a Cryptocurrency and Steem flavour. 
+Data Wrangling occupies a significant portion of any Data Analysts time. The next tutorial will extend this Web Scraping Tutorial to look at more advanced data wrangling with R.
+ 
+## Curriculum
+For a complete list of the lessons in this course you can find them on github. Feel free to reuse these tutorials but if you like what you see please don't forget to star me on github and upvote this post.
+
+* https://github.com/kharoof/R-Tutorials-for-Steemit/
+
+# Related Posts
+
+* Lesson 1 [Introduction to R](https://steemit.com/utopian-io/@eroche/introduction-to-r) 
+* Lesson 2 [Finding Your Way Around R](https://steemit.com/utopian-io/@eroche/finding-your-way-around-r)
+
+---
+
+***Thank you for reading. I write on Steemit about Blockchain, Cryptocurrency and Travel.***
+R logo source: https://www.r-project.org/logo/

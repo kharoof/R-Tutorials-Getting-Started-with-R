@@ -1,0 +1,18 @@
+install.packages("htmltab", dependencies = T)
+library(htmltab)
+
+library(data.table)
+library(ggplot2)
+
+url <- "https://coinmarketcap.com/currencies/steem/historical-data/?start=20170719&end=20180719"
+
+cmc <- htmltab(url)
+
+cmc <- data.table(cmc)
+
+cmc[, LowPrice:=as.numeric(Low)]
+
+cmc[,PriceDate:=as.Date(Date, "%b %d, %Y")]
+
+
+ggplot(cmc, aes(x=PriceDate, y=LowPrice))+geom_point()

@@ -1,0 +1,46 @@
+
+## Get Data from the Steem Blockchain
+library(steemRdata)
+
+blocktrades <- getDelegation("blocktrades")
+
+blocktrades
+
+
+## Explore the Data
+str(blocktrades)
+
+summary(blocktrades)
+
+blocktrades$SP
+
+hist(blocktrades$SP)
+
+boxplot(blocktrades$SP)
+
+install.packages("stringr")
+
+## Run regular expressions on the data
+library(stringr)
+
+blocktrades[str_detect(delegatee, "steem")]
+
+
+## Add features to the data
+
+install.packages("lubridate")
+
+library(lubridate)
+
+blocktrades[, del_month:=month(date)]
+
+blocktrades[, del_year:=year(date)]
+
+
+## Visualise the data
+library(ggplot2)
+
+ggplot(blocktrades[del_year==2018], aes(x=del_month, y=SP))+geom_col()
+
+ggplot(blocktrades[del_year==2018], aes(x=del_month))+geom_bar()
+

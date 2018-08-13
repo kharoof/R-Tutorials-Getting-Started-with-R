@@ -1,0 +1,50 @@
+## Illustrate a Time Series object
+
+## Generate and plot 10 observations from a Random Normal Distribution.
+prices <- rnorm(10)
+plot(prices)
+
+##Convert the Variable prices to a time series object
+ts.prices <- ts(prices)
+plot(ts.prices)
+
+
+## Get & Clean Steem Price data from coinmarket cap
+library(htmltab)
+url <- "https://coinmarketcap.com/currencies/steem/historical-data/?start=20160701&end=20180813"
+cmc <- htmltab(url)
+## Clean the data
+## Convert to data.table
+cmc <- data.table(cmc)
+## Subset the data
+cmc <- cmc[, c("Date", "Volume", "Open*", "High", "Close**", "Low")]
+## Rename the Column Headings
+names(cmc) <- c("Date","Volume","Open","High","Close", "Low")
+##Convert the data 
+cmc[, Open:=as.numeric(Open)][, High:=as.numeric(High)][, Low:=as.numeric(Low)][, Close:=as.numeric(Close)]
+cmc[,Date:=as.Date(Date, "%b %d, %Y")]
+cmc[, Volume:=as.numeric(gsub(",","",Volume))]
+
+library(xts)
+cmc.xts <- as.xts(cmc)
+plot(cmc.xts)
+
+## Plot the data with quantmod
+library(quantmod)
+candleChart(cmc.xts)
+
+candleChart(cmc.xts["2018"])
+
+candleChart(cmc.xts["2018-08"])
+
+## Forecast the data
+library(forecast)
+close.price <- cmc.xts$Close
+forecast(close.price)
+
+## Check the data is Stationary
+close.price
+diff(close.price)
+plot(diff(close.price))
+plot(acf(close.price))
+

@@ -1,0 +1,22 @@
+library(htmltab)
+url <- "https://coinmarketcap.com/currencies/bitcoin/historical-data/?start=20160701&end=20180813"
+cmc <- htmltab(url)
+## Clean the data
+## Convert to data.table
+cmc <- data.table(cmc)
+## Subset the data
+cmc <- cmc[, c("Date", "Volume", "Open*", "High", "Close**", "Low")]
+## Rename the Column Headings
+names(cmc) <- c("Date","Volume","Open","High","Close", "Low")
+##Convert the data 
+cmc[, Open:=as.numeric(Open)][, High:=as.numeric(High)][, Low:=as.numeric(Low)][, Close:=as.numeric(Close)]
+cmc[,Date:=as.Date(Date, "%b %d, %Y")]
+cmc[, Volume:=as.numeric(gsub(",","",Volume))]
+
+library(xts)
+cmc.xts <- as.xts(cmc)
+plot(cmc.xts)
+
+## Plot the data with quantmod
+library(quantmod)
+candleChart(cmc.xts["2018-08"])
